@@ -13,12 +13,19 @@ import { getNextAvailableIDApi, loginApi, signUpApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { setRole, setToken, setUserID } from '@/Utils/auth';
 import { collegeList } from './collegeList';
+type valueProps = {
+  email: string;
+  password: string;
+  nickname: string;
+  college: string[];
+  studentId: string;
+};
 //注册页面
 const { Option } = Select;
 function SignUp(props: any) {
   const [form] = Form.useForm();
 
-  const onFinish = async (values: object) => {
+  const onFinish = async (values: valueProps) => {
     const user = {
       username: values.email,
       password: values.password,
