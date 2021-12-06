@@ -88,9 +88,9 @@ function SignIn(props: any) {
             <Checkbox>记住我</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <Button type="link" onClick={() => props.setModalState('忘记密码')}>
             忘记密码
-          </a>
+          </Button>
         </Form.Item>
 
         <Form.Item>

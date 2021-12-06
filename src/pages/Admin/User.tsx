@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popover, Tag, Space, message } from 'antd';
+import {
+  Card,
+  Table,
+  Button,
+  Popover,
+  Tag,
+  Space,
+  message,
+  Skeleton,
+} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { initList } from '@/reducers/actReducer';
@@ -114,8 +123,12 @@ function User(props: any) {
   ];
 
   return (
-    <Card title="用户列表" style={{ margin: '0 10px' }}>
-      <Table columns={columns} dataSource={dataSource} />
+    <Card title="用户列表">
+      {dataSource.length === 0 ? (
+        <Skeleton active paragraph={{ rows: 10 }} />
+      ) : (
+        <Table columns={columns} dataSource={dataSource} />
+      )}
     </Card>
   );
 }

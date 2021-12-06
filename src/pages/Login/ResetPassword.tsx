@@ -1,70 +1,107 @@
-import * as React from 'react';
-import { Form, Input, Button, Checkbox, Card, message } from 'antd';
+import React from 'react';
+import { Form, Input, Button, Row, Col } from 'antd';
 
 //忘记密码页面，后面再进行协商
-export default function ResetPassword(props: object) {
+export default function ResetPassword(props: any) {
   return (
     <div
       style={{
-        width: '100vw',
-        height: '100vh',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <Card className="login-Card">
-        <div className="sign-title">登录</div>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="username"
-            rules={[{ required: true, message: '请输入你的账号' }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="账号"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: '请输入你的密码' }]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="密码"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>记住我</Checkbox>
-            </Form.Item>
-
-            <a className="login-form-forgot" href="">
-              忘记密码
-            </a>
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
+      <Form
+        name="resetPassword"
+        scrollToFirstError
+        style={{ margin: '16px 20px' }}
+      >
+        <Row>
+          <Col>
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: '请输入你的邮箱！' },
+                {
+                  type: 'email',
+                  message: '请输入正确格式的邮箱地址！',
+                },
+              ]}
             >
-              登录
-            </Button>
-            {'   '}或{' '}
-            <Button type="link" onClick={() => props.history.push('/Signup')}>
-              现在注册！
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+              <Input placeholder="邮箱" />
+            </Form.Item>
+          </Col>
+
+          <Col>
+            <Form.Item>
+              <Button>验证码</Button>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Form.Item
+          name="Verification"
+          rules={[
+            {
+              pattern: /^[0-9]*$/,
+              message: '只能使用数字组合',
+            },
+            { required: true, message: '请输入你的验证码', whitespace: true },
+          ]}
+        >
+          <Input placeholder="验证码" />
+        </Form.Item>
+
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              min: 6,
+              message: '请输入大于5个字符的密码',
+            },
+            {
+              max: 20,
+              message: '请输入小于20个字符的密码',
+            },
+            {
+              required: true,
+              message: '请输入你的密码',
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password placeholder="新密码" />
+        </Form.Item>
+
+        <Form.Item
+          name="confirm"
+          dependencies={['password']}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: '请确认你的密码',
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('确认密码与密码不一致');
+              },
+            }),
+          ]}
+        >
+          <Input.Password placeholder="确认新密码" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            确认
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 }

@@ -14,7 +14,18 @@ function AdminUser(props: any) {
           style={{ padding: '14px 0' }}
         >
           <div className="site-layout-sider">
-            <Sider className="site-layout-background" width="100%">
+            <Sider
+              className="site-layout-background"
+              breakpoint="lg"
+              collapsedWidth="0"
+              zeroWidthTriggerStyle={{
+                top: '-20px',
+                color: '#1DA57A',
+                backgroundColor: 'white',
+                boxShadow: '2px 0 8px rgba(0,0,0,.15)',
+                height: '36px',
+              }}
+            >
               <Menu
                 mode="inline"
                 defaultSelectedKeys={['/home/adminUser/user']}

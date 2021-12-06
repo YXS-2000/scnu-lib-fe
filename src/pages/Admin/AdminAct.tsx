@@ -8,13 +8,24 @@ const { Content, Sider } = Layout;
 function AdminAct(props: any) {
   return (
     <Layout>
-      <Content className='AdminAct-content'>
+      <Content className="AdminAct-content">
         <Layout
           className="site-layout-background"
           style={{ padding: '14px 0' }}
         >
           <div className="site-layout-sider">
-            <Sider className="site-layout-background" width="100%">
+            <Sider
+              className="site-layout-background"
+              breakpoint="lg"
+              collapsedWidth="0"
+              zeroWidthTriggerStyle={{
+                top: '-20px',
+                color: '#1DA57A',
+                backgroundColor: 'white',
+                boxShadow: '2px 0 8px rgba(0,0,0,.15)',
+                height: '36px',
+              }}
+            >
               <Menu
                 mode="inline"
                 defaultSelectedKeys={['/home/adminAct/listact']}
@@ -37,7 +48,6 @@ function AdminAct(props: any) {
           <Content
             style={{
               padding: '10px 24px',
-
             }}
           >
             {props.children}

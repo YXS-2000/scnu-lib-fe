@@ -126,6 +126,7 @@ function SignUp(props: any) {
         >
           <Input placeholder="帐号" />
         </Form.Item>
+
         <Form.Item
           name="password"
           rules={[
@@ -179,7 +180,13 @@ function SignUp(props: any) {
           ]}
         >
           <Checkbox>
-            我已经阅读并同意 <a href="">用户协议</a>
+            我已经阅读并同意{' '}
+            <a
+              href="https://www.yuque.com/docs/share/4a946250-730b-4b70-95d0-53848e41449e?# 《用户协议》"
+              target="_blank"
+            >
+              用户协议
+            </a>
           </Checkbox>
         </Form.Item>
         <Form.Item>

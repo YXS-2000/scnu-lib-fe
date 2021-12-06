@@ -9,7 +9,9 @@
 .site-layout-background {
   background: #fff;
 }
-
+.site-layout-sider{
+  width: auto
+}
 
 .volunteerCheckBox>.ant-form-item-control>.ant-form-item-control-input>.ant-form-item-control-input-content{
   display: flex;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, message, Modal, Popover } from 'antd';
+import { Button, message, Modal, Popover, Tooltip } from 'antd';
 import Labels from '../../../components/Labels';
 import { RootState } from '@/store';
 import { actSignUpApi, userVolSignUpApi } from '@/Services/activity';
@@ -21,6 +21,7 @@ function ActivityDetail(props: any) {
   const dispatch = useDispatch(); // 更新已报名活动的状态
   const acts = useSelector((store: RootState) => store.act); // 下面报名成功后只有id，通过id查找活动详情放到已报名活动中
   const regActs = useSelector((store: RootState) => store.regAct);
+
   useEffect(() => {
     //console.log(regActs,props.modalDetail?.id)
     if (regActs.find(a => a === props.modalDetail?.id)) {
@@ -83,7 +84,9 @@ function ActivityDetail(props: any) {
   const handleVisibleChange = (visible: boolean) => {
     setSignUpVisible(visible);
   };
-
+  let client = /Android|webOS|iPhone|iPod|BlackBerry/i.test(
+    navigator.userAgent,
+  );
   return (
     <Modal
       className="actDetail-modal"
@@ -135,16 +138,18 @@ function ActivityDetail(props: any) {
               visible={signUpvisible}
               onVisibleChange={handleVisibleChange}
             >
-              <Button
-                disabled={!isSigned}
-                onClick={() => {
-                  isLogined()
-                    ? handleSignUpVisible()
-                    : message.error('请先登录');
-                }}
-              >
-                签到
-              </Button>{' '}
+              <Tooltip title={client ? '' : '请使用移动端进行定位'}>
+                <Button
+                  disabled={!client}
+                  onClick={() => {
+                    isLogined()
+                      ? handleSignUpVisible()
+                      : message.error('请先登录');
+                  }}
+                >
+                  签到
+                </Button>{' '}
+              </Tooltip>
             </Popover>
           ) : (
             <Button
